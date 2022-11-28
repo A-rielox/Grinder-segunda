@@ -1,0 +1,32 @@
+<div class="ui container">
+   <div class="ui raised segment very padded">
+      <h3>Create an Account</h3>
+
+      <form [formGroup]="authForm" class="ui form" (ngSubmit)="onSubmit()">
+         <div class="field">
+            <label>User Name</label>
+            <input type="text" formControlName="username" />
+         </div>
+         {{ authForm.controls.username.errors | json }}
+
+         <div class="field">
+            <label>Password</label>
+            <input type="text" formControlName="password" />
+         </div>
+         {{ authForm.controls.password.errors | json }}
+
+         <div class="field">
+            <label>Confirm Password</label>
+            <input type="text" formControlName="passwordConfirmation" />
+         </div>
+         {{ authForm.controls.passwordConfirmation.errors | json }}
+
+         <!-- SUBMIT BUTTON -->
+         <div>
+            <button class="ui green button submit">Submit</button>
+         </div>
+
+         <p>FormGroup validator: {{ authForm.errors | json }}</p>
+      </form>
+   </div>
+</div>
