@@ -3,30 +3,53 @@
       <h3>Create an Account</h3>
 
       <form [formGroup]="authForm" class="ui form" (ngSubmit)="onSubmit()">
-         <div class="field">
-            <label>User Name</label>
-            <input type="text" formControlName="username" />
-         </div>
-         {{ authForm.controls.username.errors | json }}
+         <!-- NAME -->
+         <app-input
+            [control]="authForm.controls.username"
+            inputType="text"
+            label="User Name"
+         ></app-input>
 
-         <div class="field">
-            <label>Password</label>
-            <input type="text" formControlName="password" />
-         </div>
-         {{ authForm.controls.password.errors | json }}
+         <!-- PASSWORD -->
+         <app-input
+            [control]="authForm.controls.password"
+            inputType="password"
+            label="Password"
+         ></app-input>
 
-         <div class="field">
-            <label>Confirm Password</label>
-            <input type="text" formControlName="passwordConfirmation" />
+         <!-- PASSWORD-CONFIRMATION -->
+         <app-input
+            [control]="authForm.controls.passwordConfirmation"
+            inputType="password"
+            label="Password Confirmation"
+         ></app-input>
+
+         <!-- MENSAJES ERROR GLOBAL -->
+         <div
+            *ngIf="
+               authForm.get('password')?.touched &&
+               authForm.get('passwordConfirmation')?.touched &&
+               authForm.errors
+            "
+            class="ui red basic label"
+         >
+            <p *ngIf="authForm.errors['passwordsDontMatch']">
+               Password and Password Confirmation must match
+            </p>
+
+            <p *ngIf="authForm.errors['noConnection']">
+               No internet connection detected, failed to sign up.
+            </p>
+
+            <p *ngIf="authForm.errors['unknownError']">Failed to sign up.</p>
          </div>
-         {{ authForm.controls.passwordConfirmation.errors | json }}
 
          <!-- SUBMIT BUTTON -->
          <div>
             <button class="ui green button submit">Submit</button>
          </div>
 
-         <p>FormGroup validator: {{ authForm.errors | json }}</p>
+         <!-- <p>FormGroup validator: {{ authForm.errors | json }}</p> -->
       </form>
    </div>
 </div>

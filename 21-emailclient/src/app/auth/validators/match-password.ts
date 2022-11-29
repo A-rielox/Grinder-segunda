@@ -14,7 +14,7 @@ export class MatchPassword implements Validator {
    }
 }
 
-/*  al poner tipo  "FormGroup"  en 
+/*  al poner tipo  "FormGroup"   en ( en lugar de AbstractControl )
 
          validate(formGroup: FormGroup)
    
@@ -22,5 +22,6 @@ export class MatchPassword implements Validator {
 
          { validators: [this.matchPassword.validate as ValidatorFn] }
 
-
+   
+   o aca usar "validate(control: AbstractControl)"
 */

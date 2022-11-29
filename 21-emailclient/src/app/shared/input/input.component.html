@@ -1,1 +1,53 @@
-<p>input works!</p>
+<div class="field">
+   <label>{{ label }}</label>
+
+   <input
+      *ngIf="controlType === 'input'"
+      [type]="inputType"
+      [formControl]="control"
+   />
+
+   <textarea
+      *ngIf="controlType === 'textarea'"
+      [formControl]="control"
+   ></textarea>
+
+   <!-- MENSAJES -->
+   <div
+      *ngIf="control.touched && control.errors && control.dirty"
+      class="ui pointing red basic label"
+   >
+      <p *ngIf="control.errors['required']">Value is required.</p>
+
+      <p *ngIf="control.errors['email']">Enter a valid email.</p>
+
+      <p *ngIf="control.errors['minlength']">
+         Value you entered is
+         {{ control.errors["minlength"].actualLength }}
+         characters long, but it must be at least
+         {{ control.errors["minlength"].requiredLength }}
+         characters
+      </p>
+
+      <p *ngIf="control.errors['maxlength']">
+         Value you entered is
+         {{ control.errors["maxlength"].actualLength }}
+         characters long, but it cannot be longer than
+         {{ control.errors["maxlength"].requiredLength }}
+         characters
+      </p>
+
+      <p *ngIf="control.errors['pattern']">Invalid format</p>
+
+      <p *ngIf="control.errors['nonUniqueUsername']">Username is taken</p>
+   </div>
+</div>
+
+<!-- el borde rojo se le puede pasar aca con 
+   [ngClass]="{ 'is-danger': control.touched && control.errors && control.dirty }" 
+
+   en css
+   input.ng-invalid.ng-touched {
+   border: 1px solid red;
+   }
+-->
