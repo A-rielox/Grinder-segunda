@@ -6,6 +6,7 @@ import {
    ValidatorFn,
    Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService, SignupCredentials } from '../auth.service';
 import { MatchPassword } from '../validators/match-password';
 import { UniqueUsername } from '../validators/unique-username';
@@ -45,7 +46,8 @@ export class SignupComponent implements OnInit {
    constructor(
       private matchPassword: MatchPassword,
       private uniqueUsername: UniqueUsername,
-      private authService: AuthService
+      private authService: AuthService,
+      private router: Router
    ) {}
 
    ngOnInit(): void {
@@ -60,11 +62,8 @@ export class SignupComponent implements OnInit {
       this.authService
          .signup(<SignupCredentials>this.authForm.value)
          .subscribe({
-            next: (res) => {
-               console.log(res);
-
-               // navigate to
-               // this.router.navigateByUrl('/inbox');
+            next: () => {
+               this.router.navigateByUrl('/inbox');
             },
             error: (err) => {
                console.log(err);

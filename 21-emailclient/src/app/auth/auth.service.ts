@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, delay, tap } from 'rxjs';
 
 export interface SignupCredentials {
    username: string;
@@ -12,7 +12,7 @@ interface SignupResponse {
    username: string;
 }
 
-interface SigninCredentials {
+export interface SigninCredentials {
    username: string;
    password: string;
 }
@@ -27,7 +27,7 @@ interface SignedinResponse {
 })
 export class AuthService {
    rootUrl = 'https://api.angular-email.com';
-   signedin$ = new BehaviorSubject(false);
+   signedin$ = new BehaviorSubject(null); // null p' indicar q no conocemos es estado de autenticacion todavia
 
    constructor(private http: HttpClient) {}
 
@@ -59,10 +59,13 @@ export class AuthService {
    // revisa si ya esta logeado
    checkAuth() {
       return this.http
-         .get<SignedinResponse>(this.rootUrl + '/auth/signedin')
+         .get<SignedinResponse>(
+            this.rootUrl + '/auth/signedin' /* , {withCredentials: true} */
+         )
          .pipe(
             tap((res) => {
-               console.log(res);
+               // console.log( res);  {authenticated: true, username: 'arielox1'}
+               this.signedin$.next(res.authenticated);
             })
          );
    }
@@ -70,6 +73,28 @@ export class AuthService {
    //////////////////////////////////////////
    //////////////////////////////////////////////////
    //
+   signout() {
+      return this.http.post(this.rootUrl + '/auth/signout', {}).pipe(
+         tap(() => {
+            // console.log(res); {}
+            this.signedin$.next(false);
+         })
+      );
+   }
+
+   //////////////////////////////////////////
+   //////////////////////////////////////////////////
+   //
+   signin(credentials: SigninCredentials) {
+      return this.http
+         .post<{ username: string }>(this.rootUrl + '/auth/signin', credentials)
+         .pipe(
+            tap(() => {
+               // console.log(res); { username: wsxedc }
+               this.signedin$.next(true);
+            })
+         );
+   }
 }
 
 /* 
@@ -87,22 +112,4 @@ UN correo
 GET   https://api.angular-email.com/emails/:id
 
 
-usernameAvailable(username: string) {
-         this.rootUrl + '/auth/username',
-
-
-   signup(credentials: SignupCredentials) {
-            .post<SignupResponse>(this.rootUrl + '/auth/signup', credentials)
-
-
-   // revisa si ya esta logeado
-         .get<SignedinResponse>(this.rootUrl + '/auth/signedin')
-
-
-   signout() {
-      return this.http.post(this.rootUrl + '/auth/signout', {}).pipe(
-
-
-   signin(credentials: SigninCredentials) {
-         .post<{ username: string }>(this.rootUrl + '/auth/signin', credentials)
-         */
+*/
