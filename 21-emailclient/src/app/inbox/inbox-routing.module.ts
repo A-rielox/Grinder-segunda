@@ -1,20 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { EmailResolverService } from './email-resolver.service';
+import { EmailShowComponent } from './email-show/email-show.component';
 import { HomeComponent } from './home/home.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { PlaceholderComponent } from './placeholder/placeholder.component';
 
 const routes: Routes = [
    {
-      path: '',
+      path: '', // http://localhost:4200/inbox
       component: HomeComponent,
-      // children: [
-      //    { path: 'not-found', component: NotFoundComponent },
-      //    {
-      //       path: ':id',
-      //       component: EmailShowComponent,
-      //       resolve: { email: EmailResolverService },
-      //    },
-      //    { path: '', component: PlaceholderComponent },
-      // ],
+      children: [
+         { path: 'not-found', component: NotFoundComponent },
+         {
+            path: ':id',
+            component: EmailShowComponent,
+            resolve: { email: EmailResolverService },
+         },
+         { path: '', component: PlaceholderComponent },
+      ],
    },
 ];
 

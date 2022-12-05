@@ -1,0 +1,12 @@
+<div class="ui celled list">
+   <div class="item" *ngFor="let email of emails">
+      <!-- routerLink añade a el current address esta parte -->
+      <a [routerLink]="email.id" routerLinkActive="active">
+         <div class="content">
+            <div class="header trim">{{ email.subject }}</div>
+
+            <p class="trim">{{ email.from }}</p>
+         </div>
+      </a>
+   </div>
+</div>

@@ -1,0 +1,9 @@
+.header {
+   display: flex;
+   justify-content: space-between;
+   flex-wrap: wrap;
+}
+
+.ui.divider {
+   padding-top: 1rem;
+}

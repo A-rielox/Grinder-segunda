@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, delay, tap } from 'rxjs';
+import { BehaviorSubject, tap } from 'rxjs';
 
 export interface SignupCredentials {
    username: string;
@@ -27,7 +27,7 @@ interface SignedinResponse {
 })
 export class AuthService {
    rootUrl = 'https://api.angular-email.com';
-   signedin$ = new BehaviorSubject(null); // null p' indicar q no conocemos es estado de autenticacion todavia
+   signedin$ = new BehaviorSubject(null); // null p' indicar q no conocemos el estado de autenticacion todavia
 
    constructor(private http: HttpClient) {}
 
