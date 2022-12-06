@@ -13,6 +13,7 @@ export class EmailShowComponent implements OnInit {
    constructor(private route: ActivatedRoute) {
       this.route.data.subscribe((res) => {
          // la data q mando desde el resolver
+         // console.log(res); {email: {…}}
          this.email = res['email'];
       });
    }

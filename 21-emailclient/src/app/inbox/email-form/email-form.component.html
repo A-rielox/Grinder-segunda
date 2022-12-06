@@ -1,0 +1,31 @@
+<form class="ui form" [formGroup]="emailForm" (ngSubmit)="onSubmit()">
+   <!-- ========= TO ========= -->
+   <app-input [control]="emailForm.controls.to" inputType="email" label="To">
+   </app-input>
+
+   <!-- ========= FROM ========= -->
+   <app-input
+      [control]="emailForm.controls.from"
+      inputType="email"
+      label="From"
+   >
+   </app-input>
+
+   <!-- ========= SUBJECT ========= -->
+   <app-input
+      [control]="emailForm.controls.subject"
+      inputType="text"
+      label="Subject"
+   >
+   </app-input>
+
+   <!-- ========= TEXT ========= -->
+   <app-input
+      [control]="emailForm.controls.text"
+      controlType="textarea"
+      label="Content"
+   >
+   </app-input>
+
+   <button class="ui button teal">Send</button>
+</form>

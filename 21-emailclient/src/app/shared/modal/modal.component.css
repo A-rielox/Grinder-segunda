@@ -1,0 +1,14 @@
+.actions:empty {
+   display: none;
+}
+
+.actions-default {
+   display: none;
+}
+
+.actions:empty + .actions-default {
+   display: block;
+}
+
+/*  yellow  */
+/* explicacion de css y modal en proyecto comps-routing */
