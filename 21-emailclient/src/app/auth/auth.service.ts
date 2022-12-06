@@ -28,6 +28,7 @@ interface SignedinResponse {
 export class AuthService {
    rootUrl = 'https://api.angular-email.com';
    signedin$ = new BehaviorSubject(null); // null p' indicar q no conocemos el estado de autenticacion todavia
+   username = '';
 
    constructor(private http: HttpClient) {}
 
@@ -48,8 +49,9 @@ export class AuthService {
       return this.http
          .post<SignupResponse>(this.rootUrl + '/auth/signup', credentials)
          .pipe(
-            tap(() => {
+            tap((res) => {
                this.signedin$.next(true);
+               this.username = res.username;
             })
          );
    }
@@ -66,6 +68,7 @@ export class AuthService {
             tap((res) => {
                // console.log( res);  {authenticated: true, username: 'arielox1'}
                this.signedin$.next(res.authenticated);
+               this.username = res.username;
             })
          );
    }
@@ -89,9 +92,10 @@ export class AuthService {
       return this.http
          .post<{ username: string }>(this.rootUrl + '/auth/signin', credentials)
          .pipe(
-            tap(() => {
+            tap((res) => {
                // console.log(res); { username: wsxedc }
                this.signedin$.next(true);
+               this.username = res.username;
             })
          );
    }
