@@ -31,8 +31,6 @@ export class NotificationsService {
    addSuccess(message: string) {
       const id = this.randomId();
 
-      console.log(id);
-
       this.messagesInput.next({
          id,
          type: 'success',
