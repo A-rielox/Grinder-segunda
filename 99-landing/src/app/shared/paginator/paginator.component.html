@@ -1,1 +1,15 @@
-<p>paginator works!</p>
+<br />
+<br />
+<br />
+
+<nav>
+   <ul class="pagination">
+      <li
+         *ngFor="let page of pageOptions"
+         [ngClass]="{ active: page === currentPage }"
+         class="page-item"
+      >
+         <a class="page-link">{{ page }}</a>
+      </li>
+   </ul>
+</nav>
