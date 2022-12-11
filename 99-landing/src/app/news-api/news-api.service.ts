@@ -20,10 +20,10 @@ interface NewsApiResponse {
    providedIn: 'root',
 })
 export class NewsApiService {
-   private url = 'https://newsapi.org/v2/top-headlines';
-   private pageSize = 10;
    private apiKey = 'b0639f0fe8874a6ab39e256f4dec5d18';
    private country = 'mx';
+   private pageSize = 10;
+   private url = 'https://newsapi.org/v2/top-headlines';
 
    private pagesInput: Subject<number>; // num de la pag q quiero
    pagesOutput: Observable<Article[]>; // lista de articulos
